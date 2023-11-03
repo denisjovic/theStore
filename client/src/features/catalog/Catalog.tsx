@@ -1,13 +1,7 @@
 import React from "react";
 import { Product, AddProducts } from "../../types/product";
-import {
-  Avatar,
-  Button,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
+import { Button } from "@mui/material";
+import ProductList from "./ProductList";
 
 export default function Catalog({
   products,
@@ -24,21 +18,10 @@ export default function Catalog({
   };
   return (
     <React.Fragment>
-      <List>
-        {products.map((product) => (
-          <ListItem key={product.id}>
-            <ListItemAvatar>
-              <Avatar src={product.pictureUrl} />
-            </ListItemAvatar>
-            <ListItemText>
-              {product.name} - {product.price}
-            </ListItemText>
-          </ListItem>
-        ))}
-      </List>
       <Button variant="contained" onClick={() => addProducts(newProduct)}>
         Add product
       </Button>
+      <ProductList products={products} />
     </React.Fragment>
   );
 }
