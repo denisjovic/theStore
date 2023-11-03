@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Product } from "./types/product";
+import Catalog from "./features/catalog/Catalog";
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -16,24 +17,10 @@ function App() {
     setProducts([...products, newProduct]);
   }
 
-  const tempId = Math.floor(Math.random() * 10000);
-  const newProduct = {
-    id: tempId,
-    name: `product_${tempId}`,
-    price: Math.floor(Math.random() * 8788),
-  };
-
   return (
     <div>
       <h1>The Store</h1>
-      <button onClick={() => addProducts(newProduct)}>Add product</button>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - {product.price}
-          </li>
-        ))}
-      </ul>
+      <Catalog products={products} addProducts={addProducts} />
     </div>
   );
 }

@@ -9,3 +9,5 @@ export interface Product {
     "quantityInStock"?: number
   
 }
+
+export type AddProducts = (product: Product) => void;
