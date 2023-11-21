@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Product } from "../../types/product";
 import agent from "../../api/agent";
+import NotFound from "../../errors/NotFound";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +29,7 @@ export default function ProductDetails() {
   }, [id]);
 
   if (loading) return <h3>Loading...</h3>;
-  if (!product) return <h3>Product not found</h3>;
+  if (!product) return <NotFound />;
 
   return (
     <Grid container spacing={6}>
