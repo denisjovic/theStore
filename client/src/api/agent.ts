@@ -6,17 +6,21 @@ axios.defaults.baseURL = 'http://localhost:5000/api/';
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-axios.interceptors.response.use(response => {
+const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
+
+axios.interceptors.response.use(async response => {
+  await sleep();
   return response;
+
 }, (error: AxiosError) => {
   const {data, status} = error.response as AxiosResponse;
   switch(status) {
     case 400:
-      if (data.errors) {
+      if (data.error) {
         const modelStateErrors: string[] = [];
-        for (const key in data.errors) {
+        for (const key in data.error) {
           if (data.errors[key]) {
-            modelStateErrors.push(data.errors[key])
+            modelStateErrors.push(data.error[key])
           }
         }
         throw modelStateErrors.flat();

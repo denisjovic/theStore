@@ -14,6 +14,7 @@ import axios from "axios";
 import { Product } from "../../types/product";
 import agent from "../../api/agent";
 import NotFound from "../../errors/NotFound";
+import Loading from "../../components/Loading";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +29,7 @@ export default function ProductDetails() {
         .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <h3>Loading...</h3>;
+  if (loading) return <Loading message="Loading product details..." />;
   if (!product) return <NotFound />;
 
   return (
