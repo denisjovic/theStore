@@ -1,4 +1,4 @@
-namespace API.Properties
+namespace API.Entities
 {
   public class Product
   {
@@ -10,5 +10,6 @@ namespace API.Properties
     public string Type { get; set; }
     public string Brand { get; set; }
     public int QuantityInStock { get; set; }
+    public string PublicId { get; set; }
   }
 }
