@@ -9,9 +9,7 @@ import {
   Badge,
   Box,
 } from "@mui/material";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import ModeNightIcon from "@mui/icons-material/ModeNight";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 
 interface Props {
@@ -62,12 +60,7 @@ export default function Header({ toggleDarkMode, darkMode }: Props) {
           >
             TheStore
           </Typography>
-          <Switch
-            checked={darkMode}
-            onChange={toggleDarkMode}
-            // checkedIcon={<ModeNightIcon />}
-            // icon={<LightModeIcon />}
-          />
+          <Switch checked={darkMode} onChange={toggleDarkMode} />
         </Box>
         <List sx={{ display: "flex" }}>
           {middleLinks.map(({ title, path }) => (
@@ -82,6 +75,8 @@ export default function Header({ toggleDarkMode, darkMode }: Props) {
             edge="start"
             color="inherit"
             sx={{ mr: 2 }}
+            component={Link}
+            to="/basket"
           >
             <Badge badgeContent="4" color="secondary">
               <ShoppingCart />
