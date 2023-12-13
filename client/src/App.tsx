@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./pages/Header";
 import {
   Container,
@@ -9,8 +9,14 @@ import {
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useStoreContext } from "./context/StoreContext";
+import agent from "./api/agent";
+import Loading from "./components/Loading";
+import { getCookie } from "./utils/utils";
 
 function App() {
+  const { setBasket } = useStoreContext();
+  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const palleteType = darkMode ? "dark" : "light";
   const theme = createTheme({
@@ -24,6 +30,23 @@ function App() {
   const toggleDarkTheme = () => {
     setDarkMode(!darkMode);
   };
+
+  useEffect(() => {
+    const buyerId = getCookie("buyerId");
+    if (buyerId) {
+      console.log("BID", buyerId);
+      agent.Basket.get()
+        .then((basket) => {
+          setBasket(basket);
+          console.log("BASK", basket);
+        })
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }
+  }, [setBasket]);
+
+  if (loading) return <Loading message="Initializing..." />;
+
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer position="bottom-right" hideProgressBar theme="colored" />

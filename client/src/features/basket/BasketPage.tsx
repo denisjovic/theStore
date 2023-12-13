@@ -1,7 +1,3 @@
-import { useEffect, useState } from "react";
-import { Basket } from "../../types/basket";
-import agent from "../../api/agent";
-import Loading from "../../components/Loading";
 import {
   IconButton,
   Paper,
@@ -14,20 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import { useStoreContext } from "../../context/StoreContext";
 
 export default function BasketPage() {
-  const [loading, setLoading] = useState(false);
-  const [basket, setBasket] = useState<Basket | null>(null);
+  const { basket } = useStoreContext();
 
-  useEffect(() => {
-    setLoading(true);
-    agent.Basket.get()
-      .then((item) => setBasket(item))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading) return <Loading message="Loading basket..." />;
   if (!basket)
     return <Typography variant="h3">Your basket is empty.</Typography>;
 
@@ -36,7 +23,7 @@ export default function BasketPage() {
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
+            <TableCell>Name</TableCell>
             <TableCell align="right">Price</TableCell>
             <TableCell align="right">Quantity</TableCell>
             <TableCell align="right">Subtotal</TableCell>

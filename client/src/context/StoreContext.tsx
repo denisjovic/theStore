@@ -39,7 +39,7 @@ export function StoreContextProvider({ children }: PropsWithChildren<unknown>) {
   }
 
   return (
-    <StoreContext.Provider value={(basket, setBasket, removeItem)}>
+    <StoreContext.Provider value={{ basket, setBasket, removeItem }}>
       {children}
     </StoreContext.Provider>
   );
