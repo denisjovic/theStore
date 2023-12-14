@@ -10,13 +10,16 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import agent from "../../api/agent";
 import { LoadingButton } from "@material-ui/lab";
+import { useStoreContext } from "../../context/StoreContext";
 
 export default function ProductCard({ product }: { product: Product }) {
   const [loading, setLoading] = useState(false);
+  const { setBasket } = useStoreContext();
 
   function handleAddItem(productId: number) {
     setLoading(true);
     agent.Basket.addItem(productId)
+      .then((basket) => setBasket(basket))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }
