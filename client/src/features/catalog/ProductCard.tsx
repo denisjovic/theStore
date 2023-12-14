@@ -11,6 +11,7 @@ import { useState } from "react";
 import agent from "../../api/agent";
 import { LoadingButton } from "@material-ui/lab";
 import { useStoreContext } from "../../context/StoreContext";
+import { currencyFormat } from "../../utils/utils";
 
 export default function ProductCard({ product }: { product: Product }) {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ export default function ProductCard({ product }: { product: Product }) {
       />
       <CardContent>
         <Typography gutterBottom color="secondary" variant="h5">
-          ${(product.price / 100).toFixed(2)}
+          {currencyFormat(product.price)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {product.brand} / {product.type}
