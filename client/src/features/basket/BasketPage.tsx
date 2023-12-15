@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Grid,
   Paper,
   Table,
@@ -17,6 +18,7 @@ import agent from "../../api/agent";
 import { LoadingButton } from "@material-ui/lab";
 import BasketSummary from "./BasketSummary";
 import { currencyFormat } from "../../utils/utils";
+import { Link } from "react-router-dom";
 
 export default function BasketPage() {
   const [status, setStatus] = useState({
@@ -134,6 +136,15 @@ export default function BasketPage() {
         <Grid item xs={6} />
         <Grid item xs={6}>
           <BasketSummary />
+          <Button
+            component={Link}
+            to="/checkout"
+            variant="contained"
+            size="large"
+            fullWidth
+          >
+            Checkout
+          </Button>
         </Grid>
       </Grid>
     </>
