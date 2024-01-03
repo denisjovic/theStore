@@ -34,11 +34,9 @@ function App() {
   useEffect(() => {
     const buyerId = getCookie("buyerId");
     if (buyerId) {
-      console.log("BID", buyerId);
       agent.Basket.get()
         .then((basket) => {
           setBasket(basket);
-          console.log("BASK", basket);
         })
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
